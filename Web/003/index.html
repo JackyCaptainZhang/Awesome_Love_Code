@@ -15,28 +15,67 @@
     <script type="text/javascript" src="./Love_files/functions.js" charset="utf-8"></script>
     <script type="text/javascript" src="./Love_files/love.js" charset="utf-8"></script>
 
+    <style>
+        @-webkit-keyframes music_play_rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        @keyframes music_play_rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        /* 应用于播放状态的动画样式 */
+        #img_music.playing {
+            -webkit-animation: music_play_rotate 1s linear infinite;
+            animation: music_play_rotate 1s linear infinite;
+        }
+    </style>
+    
+
+
 </head>
 
 <body>
 
     <div id="music_container">
         <!-- 音乐按钮 -->
-        <img id="img_music" src="Love_files/music_note_big.png" onclick="toggleMusic()" style="cursor: pointer;"/>
+        <img id="img_music" src="Love_files/music_note_big.png" onclick="toggleMusic()" style="cursor: pointer;" />
         <!-- 音乐播放器 -->
         <audio id="audio_music" autoplay="autoplay" loop="loop">
-          <source src="love.mp3" type="audio/mpeg" />
+            <source src="love.mp3" type="audio/mpeg" />
         </audio>
+        
         <script>
-          function toggleMusic() {
-            var audio = document.getElementById('audio_music');
-            if (audio.paused) {
-              audio.play();
-            } else {
-              audio.pause();
+            function toggleMusic() {
+                var audio = document.getElementById('audio_music');
+                var img = document.getElementById('img_music');
+                if (audio.paused) {
+                    audio.play();
+                    img.classList.add('playing');
+                } else {
+                    audio.pause();
+                    img.classList.remove('playing');
+                }
             }
-          }
+        
+            window.onload = function() {
+                var audio = document.getElementById('audio_music');
+                var img = document.getElementById('img_music');
+                if (!audio.paused) {
+                    img.classList.add('playing');
+                }
+            }
         </script>
-      </div>
+
+    </div>
       
       
     <div id="main">
